@@ -5,6 +5,7 @@ function addBook() {
     const authorName = document.getElementById('authorName').value;
     const bookDescription = document.getElementById('bookDescription').value;
     const pagesNumber = parseInt(document.getElementById('pagesNumber').value);
+    
     if (bookName && authorName && bookDescription && !isNaN(pagesNumber)) {
         const book = {
             name: bookName,
@@ -13,38 +14,36 @@ function addBook() {
             pagesNumber: pagesNumber
         };
         books.push(book);
-        showbooks();
+        showBooks();
         clearInputs();
     } else {
         alert('Please fill in all fields correctly.');
     }
 }
 
-
-function deletebook(index){
-books.splice(index,1);
-showbooks();
-
+function deleteBook(index) {
+    books.splice(index, 1);
+    showBooks();
 }
 
-
-
-
-function showbooks() {
-    const booksDiv = books.map((book, index) => `<h1>book Number: ${index + 1}</h1>
+function showBooks() {
+    const booksDiv = books.map((book, index) => `
+        <h1>Book Number: ${index + 1}</h1>
         <p><strong>Book Name: </strong>${book.name}</p>
         <p><strong>Author Name:</strong> ${book.authorName}</p>
         <p><strong>Book Description:</strong> ${book.bookDescription}</p>
         <p><strong>No. of Pages:</strong> ${book.pagesNumber} page(s)</p>
-        <button onclick="deletebook(${index})">Delete Book</button>
-        <hr>`
-        
-    );
-    document.getElementById('books').innerHTML = booksDiv.join('');
+        <button onclick="deleteBook(${index})">Delete Book</button>
+        <hr>
+    `);
 
+    document.getElementById('books').innerHTML = `
+        <hr>
+        <h1>Books</h1>
+        <hr>
+        ${booksDiv.join('')}
+    `;
 }
-
-
 
 function clearInputs() {
     document.getElementById('bookName').value = '';
@@ -52,4 +51,3 @@ function clearInputs() {
     document.getElementById('bookDescription').value = '';
     document.getElementById('pagesNumber').value = '';
 }
-
